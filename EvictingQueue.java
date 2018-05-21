@@ -10,7 +10,6 @@ import java.util.NoSuchElementException;
 public class EvictingQueue<T> {
     private final int maxSize;
     private List<T> data = new LinkedList<>();
-    private boolean isLocked = false;
 
     public EvictingQueue(int _maxSize) {
         this.maxSize = _maxSize;
