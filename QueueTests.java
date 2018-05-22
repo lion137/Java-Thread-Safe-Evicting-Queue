@@ -156,7 +156,7 @@ public class QueueTests {
         executorService.shutdown();
         executorService.awaitTermination(40, TimeUnit.SECONDS);
 
-        assertEquals(a.head().toString(), "100");
+        assertEquals(a.tail().toString(), "99");
         assertEquals(a.size(), 100);
     }
 
@@ -227,14 +227,14 @@ public class QueueTests {
         ExecutorService executorService = Executors.newFixedThreadPool(1000);
         EvictingQueue<Integer> a = new EvictingQueue(100);
         ArrayDeque<Integer> o;
-        ArrayDeque<Integer> tmp = new ArrayDeque<>(new ArrayList<>(Arrays.asList(0, 1, 2, 3)));
-        for (int i = 0; i < 5; i++) {
+        ArrayDeque<Integer> tmp = new ArrayDeque<>(new ArrayList<>(Arrays.asList(3, 2, 1, 0)));
+        for (int i = 0; i < 4; i++) {
             int finalI = i;
-            executorService.submit(() -> a.append(finalI));
+            executorService.submit(() -> a.push(finalI));
         }
-        o = a.pollAll();
         executorService.shutdown();
         executorService.awaitTermination(40, TimeUnit.SECONDS);
+        o = a.pollAll();
         assertEquals(o.toString(), tmp.toString());
     }
 
