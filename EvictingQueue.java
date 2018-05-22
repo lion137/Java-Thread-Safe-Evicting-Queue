@@ -15,11 +15,11 @@ public class EvictingQueue<T> {
         this.maxSize = _maxSize;
     }
 
-    public boolean isEmpty() {
+    public synchronized boolean isEmpty() {
         return data.isEmpty();
     }
 
-    public int size() {
+    public synchronized int size() {
         return data.size();
     }
 
